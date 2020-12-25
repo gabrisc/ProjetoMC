@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.example.demo.domain.enums.TipoCliente;
@@ -32,6 +34,10 @@ public class Cliente implements Serializable{
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos;
+	
+	@OneToMany
+	@JoinColumn(name="cliente")
+	private List<Pedido> pedidos;
 
 	public Cliente(){}
 	
@@ -96,12 +102,35 @@ public class Cliente implements Serializable{
 		this.telefones = telefones;
 	}
 
+	
+
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
 
+
+
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
 	}
 
 

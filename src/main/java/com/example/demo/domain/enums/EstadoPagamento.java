@@ -1,20 +1,21 @@
 package com.example.demo.domain.enums;
 
-public enum TipoCliente {
-	
-	PESSOAFISICA(100, "Pessoa Fisica"),
-	PESSOAJURIDICA(200, "Pessoa Juridica");
+public enum EstadoPagamento {
 
+	PEDENTE(1,"PAGAMENTO PEDENTE"),
+	QUITADO(2,"PAGAMENTO REALIZADO"),
+	CANCELADO(3,"PAGAMENTO CANCELADO");
+	
 	private Integer cod;
 	private String descricao;
 	
-	public static TipoCliente ToEnum(Integer cod) {
+	public static EstadoPagamento ToEnum(Integer cod) {
 
 			
 		if(cod == null) {
 			return null;
 		}
-		for(TipoCliente x : TipoCliente.values()) {
+		for(EstadoPagamento x : EstadoPagamento.values()) {
 			if(cod.equals(x.getCod())){
 				return x;
 			}
@@ -26,7 +27,7 @@ public enum TipoCliente {
 		}
 		
 	
-	private TipoCliente(int cod, String descricao) {
+	private EstadoPagamento(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
@@ -41,6 +42,4 @@ public enum TipoCliente {
 	}
 	
 	
-	
-
 }
