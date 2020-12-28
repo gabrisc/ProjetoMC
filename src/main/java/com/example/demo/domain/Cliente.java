@@ -11,9 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import com.example.demo.domain.enums.TipoCliente;
 
 @Entity
@@ -28,21 +26,24 @@ public class Cliente implements Serializable{
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	//Essa anotação criara uma tabela associada para os telefones
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones=new HashSet<>();
 	
+	
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos;
+	
 	
 	@OneToMany
 	@JoinColumn(name="cliente")
 	private List<Pedido> pedidos;
-
+	
+	//Construtor Vazio
 	public Cliente(){}
 	
-	
-
+	//Construtor com parametros, mas sem listas ou conjuntos
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, Integer tipo) {
 		super();
 		this.id = id;

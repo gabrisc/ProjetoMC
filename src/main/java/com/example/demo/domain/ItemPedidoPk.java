@@ -3,19 +3,20 @@ package com.example.demo.domain;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+//Classe auxiliar para utilizar o id de produto e pedido como id na tabela ItemPedido
 @Embeddable
-public class ItemPedidoPk implements Serializable{
-	
+public class ItemPedidoPk implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@ManyToOne
-	@JoinColumn(name = "pedido_id")
+	@JoinColumn(name="pedido_id")
 	private Pedido pedido;
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
 	
+	@ManyToOne
+	@JoinColumn(name="produto_id")
+	private Produto produto;
 	
 	public Pedido getPedido() {
 		return pedido;
@@ -29,6 +30,7 @@ public class ItemPedidoPk implements Serializable{
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -37,7 +39,6 @@ public class ItemPedidoPk implements Serializable{
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

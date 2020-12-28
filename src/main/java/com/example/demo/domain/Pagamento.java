@@ -1,35 +1,36 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-
 import com.example.demo.domain.enums.EstadoPagamento;
 
+//A segunda anotação serve para o JPA identificar uma herança no caso de pagamento com pagamentoComBoleto e cartao
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Pagamento implements  Serializable{
-
 	private static final long serialVersionUID = 1L;
+	
+	//Essa variavel recebe o mesmo id da classe Pedido
 	@Id
 	private Integer id;
+	
 	private EstadoPagamento estadoPagamento;
+	
+	//Pagamento não possui id proprio, por isso necessita mapear o id do pedido
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId
 	private Pedido pedido;
 	
-	
+	//Construtor Vazio
 	public Pagamento(){}
-	
+	//Construtor com paramentos, mas sem listas ou conjuntos
 	public Pagamento(Integer id, EstadoPagamento estadoPagamento, Pedido pedido) {
 		super();
 		this.id = id;

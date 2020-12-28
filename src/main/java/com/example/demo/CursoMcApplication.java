@@ -1,8 +1,13 @@
 package com.example.demo;
 
-
-
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,12 +17,21 @@ import com.example.demo.domain.Cidade;
 import com.example.demo.domain.Cliente;
 import com.example.demo.domain.Endereco;
 import com.example.demo.domain.Estado;
+import com.example.demo.domain.ItemPedido;
+import com.example.demo.domain.Pagamento;
+import com.example.demo.domain.PagamentoComBoleto;
+import com.example.demo.domain.PagamentoComCartao;
+import com.example.demo.domain.Pedido;
 import com.example.demo.domain.Produto;
+import com.example.demo.domain.enums.EstadoPagamento;
 import com.example.demo.repositores.CategoriaRepository;
 import com.example.demo.repositores.CidadeRepository;
 import com.example.demo.repositores.ClienteRepository;
 import com.example.demo.repositores.EnderecoRepository;
 import com.example.demo.repositores.EstadoRepository;
+import com.example.demo.repositores.ItemPedidoRepository;
+import com.example.demo.repositores.PagamentoRepository;
+import com.example.demo.repositores.PedidoRepository;
 import com.example.demo.repositores.ProdutoRepository;
 
 @SpringBootApplication
@@ -40,6 +54,15 @@ public class CursoMcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoMcApplication.class, args);
@@ -47,6 +70,9 @@ public class CursoMcApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+
+		Instant inst = Instant.now(); 
 		
 		Categoria cat1 = new Categoria(null,"informatica");
 		Categoria cat2 = new Categoria(null,"escritorio");
@@ -74,6 +100,16 @@ public class CursoMcApplication implements CommandLineRunner {
 		Endereco end1 = new Endereco(null,"rua flores", "300","aptp 203" ,"jardim","3822034",cid1,cliente1); 
 		Endereco end2 = new Endereco(null,"Avenida matos","105","sala 800", "Centro","38777012",cid3,cliente1);
 		
+		
+		Pedido pedido1 =new Pedido(null,Date.from(inst).toString(),cliente1,end1);
+		Pedido pedido2 =new Pedido(null,Date.from(inst).toString(),cliente1,end2);
+		Instant inst2 =Instant.parse("10/12/2021");
+		
+		
+		ItemPedido itemPedido1 = new ItemPedido(pedido1,p1,0.0,1,0.0);
+		ItemPedido itemPedido2 = new ItemPedido(pedido2,p1,1.4,1,2.0);
+		ItemPedido itemPedido3 = new ItemPedido(pedido2,p1,2.0,1,3.0);
+		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		
@@ -83,8 +119,7 @@ public class CursoMcApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cliente1));
 		enderecoRepository.saveAll(Arrays.asList(end1,end2));
 		
-		
-		
+		pedidoRepository.saveAll(Arrays.asList(pedido1,pedido2));
 		
 	}
 	
