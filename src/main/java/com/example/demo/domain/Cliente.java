@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import com.example.demo.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente implements Serializable{
@@ -33,12 +36,12 @@ public class Cliente implements Serializable{
 	
 	
 	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos=new ArrayList<>();
 	
-	
+	@JsonIgnore
 	@OneToMany
 	@JoinColumn(name="cliente")
-	private List<Pedido> pedidos;
+	private List<Pedido> pedidos=new ArrayList<>();
 	
 	//Construtor Vazio
 	public Cliente(){}

@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import com.example.demo.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //A segunda anotação serve para o JPA identificar uma herança no caso de pagamento com pagamentoComBoleto e cartao
 @Entity
@@ -23,6 +24,7 @@ public class Pagamento implements  Serializable{
 	private EstadoPagamento estadoPagamento;
 	
 	//Pagamento não possui id proprio, por isso necessita mapear o id do pedido
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId
